@@ -1,24 +1,11 @@
-body {
+.cube-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-}
-
-.container {
-    display: flex;
-    overflow: hidden;
-    width: 300px; /* Adjust width as needed */
-    height: 100px; /* Adjust height as needed */
-    position: relative;
+    gap: 10px;
 }
 
 .cube {
-    width: 100px; /* Adjust size as needed */
+    width: 100px;
     height: 100px;
-    background-color: #3498db;
-    margin: 0 5px;
-    transition: transform 0.3s ease;
+    background-color: #007bff;
+    border: 1px solid #000;
 }
