@@ -3,19 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cube Slider</title>
-    <link rel="stylesheet" href="style.css">
+    <title>To-Do App</title>
+    <style>
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        .items {
+            list-style-type: none;
+            padding: 0;
+        }
+        .item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #007bff;
+            color: white;
+            cursor: grab;
+        }
+        .item.dragging {
+            opacity: 0.5;
+        }
+    </style>
 </head>
 <body>
-    <div class="cube-container">
-        <div class="cube" id="cube-1"></div>
-        <div class="cube" id="cube-2"></div>
-        <div class="cube" id="cube-3"></div>
-        <div class="cube" id="cube-4"></div>
-        <div class="cube" id="cube-5"></div>
-    </div>
 
-    <script src="script.js"></script>
+<div class="container">
+    <h1>To-Do List</h1>
+    <ul class="items" id="todoList">
+        <li class="item" draggable="true">Task 1</li>
+        <li class="item" draggable="true">Task 2</li>
+        <li class="item" draggable="true">Task 3</li>
+    </ul>
+</div>
+
+<script>
+    const items = document.querySelectorAll('.item');
+    let draggingItem = null;
+
+    items.forEach(item => {
+        item.addEventListener('dragstart', () => {
+            draggingItem = item;
+            setTimeout(() => item.classList.add('dragging'), 0);
+        });
+
+        item.addEventListener('dragend', () => {
+            item.classList.remove('dragging');
+            draggingItem = null;
+        });
+
+        item.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        item.addEventListener('drop', () => {
+            if (draggingItem) {
+                const currentItem = draggingItem;
+                const droppedOn = item;
+
+                if (currentItem !== droppedOn) {
+                    const allItems = [...todoList.children];
+                    const currentIndex = allItems.indexOf(currentItem);
+                    const droppedIndex = allItems.indexOf(droppedOn);
+
+                    if (currentIndex < droppedIndex) {
+                        droppedOn.after(currentItem);
+                    } else {
+                        droppedOn.before(currentItem);
+                    }
+                }
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
-
